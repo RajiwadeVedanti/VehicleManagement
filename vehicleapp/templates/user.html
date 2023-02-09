@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-centered">
+                <h1 class="mt-5 mb-3">User Details</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-3">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Active/Inactive</th>
+                            <th scope="col">Admin</th>
+                            <th scope="col">Super Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users_list %}
+                        <tr>
+                            <td scope="row">{{user.username}}</td>
+                            <td scope="row">{{user.email}}</td>
+                            {% if user.is_active %}
+                            <td scope="row">Active</td>
+                            {% else %}
+                            <td scope="row">Inactive</td>
+                            {% endif %}
+                            <td scope="row">{{user.is_staff}}</td>
+                            <td scope="row">{{user.is_superuser}}</td>
+                            {% if requested_user.is_superuser %}
+                            <td scope="" row><button type="submit" class="btn btn-primary">
+                                    <a href="{% url 'add_user' %}" class="custom-btn"> Edit </a>
+                                </button></td>
+                            {% else %}
+                            <td scope="" row><button type="submit" class="btn btn-primary" disabled>
+                                    <a href="" class="custom-btn"> Edit </a>
+                                </button></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <div class="col-centered">
+                    <button type="submit" class="btn btn-primary">
+                        <a href="{% url 'add_user' %}" class="custom-btn"> Add User </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

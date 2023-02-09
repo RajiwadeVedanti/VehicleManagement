@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-centered">
+                <h1 class="mt-5 mb-3">Add User</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-3">
+                <form method="post" action="{% url 'create_user' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="id_username" name="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="id_eamil" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="id_password" name="password" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
