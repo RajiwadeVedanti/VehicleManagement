@@ -17,6 +17,8 @@
                             <th scope="col">Active/Inactive</th>
                             <th scope="col">Admin</th>
                             <th scope="col">Super Admin</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,15 +31,30 @@
                             {% else %}
                             <td scope="row">Inactive</td>
                             {% endif %}
-                            <td scope="row">{{user.is_staff}}</td>
-                            <td scope="row">{{user.is_superuser}}</td>
-                            {% if requested_user.is_superuser %}
+                            <!-- <td scope="row">{{user.is_staff}}</td> -->
+                            <td scope="row">{% if user.is_staff %}&#10003;{% else %}&#10005;{% endif %}</td>
+                            <!-- <td scope="row">{{user.is_superuser}}</td> -->
+                            <td scope="row">{% if user.is_superuser %}&#10003;{% else %}&#10005;{% endif %}</td>
+
+                            {% if super_user or admin %}
                             <td scope="" row><button type="submit" class="btn btn-primary">
-                                    <a href="{% url 'add_user' %}" class="custom-btn"> Edit </a>
+                                    <a href="{% url 'view_user' user.id %}" class="custom-btn"> Edit </a>
                                 </button></td>
                             {% else %}
                             <td scope="" row><button type="submit" class="btn btn-primary" disabled>
                                     <a href="" class="custom-btn"> Edit </a>
+                                </button></td>
+                            {% endif %}
+
+                            {% if super_user %}
+                            <td scope="" row><button type="submit" class="btn btn-primary">
+                                    <a href="{% url 'delete_user' user.id %}" class="custom-btn"
+                                        onclick="return confirm('Are you sure you want to delete this item?');"> Delete
+                                    </a>
+                                </button></td>
+                            {% else %}
+                            <td scope="" row><button type="submit" class="btn btn-primary" disabled>
+                                    <a href="" class="custom-btn"> Delete </a>
                                 </button></td>
                             {% endif %}
                         </tr>
@@ -46,11 +63,13 @@
                     </tbody>
                 </table>
 
+                {% if super_user %}
                 <div class="col-centered">
                     <button type="submit" class="btn btn-primary">
                         <a href="{% url 'add_user' %}" class="custom-btn"> Add User </a>
                     </button>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

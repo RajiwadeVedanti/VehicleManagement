@@ -11,6 +11,11 @@
             text-align: center;
         }
 
+        .col-centered-btn {
+            text-align: center;
+            margin-top: 10px;
+        }
+
         .custom-btn,
         .custom-btn:hover {
             color: #fff;
@@ -20,6 +25,36 @@
 </head>
 
 <body>
+    <!-- header sec-->
+    <!--Main Navigation-->
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'get_user' %}">Users <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'get_vehicle' %}">Vehicles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{{username}}</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <!-- header sec over-->
+
+
     {% block content %} {% endblock %}
 
     <!-- JS, Popper.js, and jQuery -->

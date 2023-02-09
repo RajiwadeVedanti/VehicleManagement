@@ -1,5 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def home(request):
+def get_vehicle(request):
     return HttpResponse("hello world")
