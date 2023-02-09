@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-centered">
+                <h1 class="mt-5 mb-3">Edit Vehicle</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-3">
+                <form method="post" onsubmit="return validate_data()" action="{% url 'edit_vehicle' vehicle_id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Number</label>
+                        <input type="text" id="id_vc_number" name="vc_number" class="form-control" value="{{number}}"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label>Model</label>
+                        <input type="test" id="id_vc_model" name="vc_model" class="form-control" value="{{model}}"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" id="id_vc_desc" name="vc_desc" class="form-control" value="{{desc}}"
+                            required>
+                    </div>
+
+                    <label>Type</label>
+                    <select class="custom-select" id="id_vc_type" name="vc_type" required>
+                        <option value="two_wheeler" {% if "two_wheeler" in type %} selected {% endif %}>Two Wheeler
+                        </option>
+                        <option value="three_wheeler" {% if "three_wheeler" in type %} selected {% endif %}>Three
+                            Wheeler
+                        </option>
+                        <option value="four_wheeler" {% if "four_wheeler" in type %} selected {% endif %}>Four Wheeler
+                        </option>
+                    </select>
+
+
+                    <div class="col-centered-btn">
+                        <button type="submit" class="btn btn-primary">Modify</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    function validate_data() {
+        var vc_number = document.getElementById("id_vc_number").value;
+        var vc_model = document.getElementById("id_vc_model").value;
+        var vc_desc = document.getElementById("id_vc_desc").value;
+        var vc_type = document.getElementById("id_vc_type").value;
+
+        var vc_type_list = ["two_wheeler", "three_wheeler", "four_wheeler"];
+
+        var reg_number = /[A-Z]{2}\d{2}[A-Z]{3}\d{3}$/;
+        var reg_text_data = /^[A-Za-z\s]*$/;
+
+
+        if (!reg_number.test(vc_number) || vc_number.length != 10) {
+            window.alert("Cannot add more than 10 characters and please enter number in format: (eg: MH12SAD456).");
+            document.getElementById("id_vc_number").focus();
+            return false;
+        };
+
+        if (!reg_text_data.test(vc_model)) {
+            window.alert("Model contains numbers or special characters.");
+            document.getElementById("id_vc_model").focus();
+            return false;
+        };
+
+        if (!reg_text_data.test(vc_desc)) {
+            window.alert("Description contains numbers or special characters.");
+            document.getElementById("id_vc_desc").focus();
+            return false;
+        };
+
+        if (!vc_type_list.includes(vc_type)) {
+            window.alert("Something wrong with type.");
+            document.getElementById("id_vc_type").focus();
+            return false;
+        };
+    }
+</script>
+
+{% endblock %}

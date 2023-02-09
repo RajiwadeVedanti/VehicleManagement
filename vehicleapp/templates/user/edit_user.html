@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-3">
-                <form method="post" action="{% url 'edit_user' user_id %}">
+                <form method="post" onsubmit="return validate_data()" action="{% url 'edit_user' user_id %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <label>Username</label>
@@ -17,24 +17,26 @@
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" id="id_eamil" name="ed_email" class="form-control" value="{{email}}"
+                        <input type="email" id="id_email" name="ed_email" class="form-control" value="{{email}}"
                             required>
                     </div>
 
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="id_user" name="ed_admin_or_superadmin" value="user"
-                            class="custom-control-input" {% if not super_user and not admin %} checked {% endif %}
+                            class="custom-control-input" {% if not is_superuser and not is_staff %} checked {% endif %}
                             required>
                         <label class="custom-control-label" for="id_user">User</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="id_admin" name="ed_admin_or_superadmin" value="admin"
-                            class="custom-control-input" {% if not super_user and admin %} checked {% endif %} required>
+                            class="custom-control-input" {% if not is_superuser and is_staff %} checked {% endif %}
+                            required>
                         <label class="custom-control-label" for="id_admin">Admin</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="id_superadmin" name="ed_admin_or_superadmin" value="superadmin"
-                            class="custom-control-input" {% if super_user and admin %} checked {% endif %} required>
+                            class="custom-control-input" {% if is_superuser and is_staff %} checked {% endif %}
+                            required>
                         <label class="custom-control-label" for="id_superadmin">Super Admin</label>
                     </div>
                     <div class="col-centered-btn">
@@ -46,4 +48,39 @@
         </div>
     </div>
 </section>
+
+
+<script>
+
+    function validate_data() {
+        var usr_name = document.getElementById("id_username").value;
+        var usr_email = document.getElementById("id_email").value;
+        var usr_type = document.querySelector('input[name="ed_admin_or_superadmin"]:checked').value;
+
+        var usr_type_list = ["user", "admin", "superadmin"];
+
+        var reg_username = /^[A-Za-z\s]*$/;
+        var reg_email = /^\w+([\.]?\w+)*@\w+([\.]?\w+)*(\.[a-z]{2,3})+$/;
+
+
+        if (!reg_username.test(usr_name)) {
+            window.alert("Username contains special characters.");
+            document.getElementById("id_username").focus();
+            return false;
+        };
+
+        if (!reg_email.test(usr_email)) {
+            window.alert("Provide email in proper format. (eg: abc12.cd@xyzase.in)");
+            document.getElementById("id_email").focus();
+            return false;
+        };
+
+
+        if (!usr_type_list.includes(usr_type)) {
+            window.alert("Something wrong with type.");
+            document.querySelector('input[name="ed_admin_or_superadmin"]:checked').focus();
+            return false;
+        };
+    }
+</script>
 {% endblock %}

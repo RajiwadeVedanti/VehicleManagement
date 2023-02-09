@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vehicleapp.middleware.ip_middleware.IPMiddleware',
 ]
 
 ROOT_URLCONF = 'vehiclemanagement.urls'

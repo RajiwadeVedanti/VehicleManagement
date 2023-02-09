@@ -1,44 +1,41 @@
 {% extends 'base.html' %} {% block content %}
-<section>
+<div>
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-centered">
-                <h1 class="mt-5 mb-3">User Details</h1>
+                <h1 class="mt-5 mb-3">Vehicle Details</h1>
             </div>
         </div>
+
+
+
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-3">
+
+                {% if vehicle_list %}
 
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Username</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Active/Inactive</th>
-                            <th scope="col">Admin</th>
-                            <th scope="col">Super Admin</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in users_list %}
+                        {% for vehicle in vehicle_list %}
                         <tr>
-                            <td scope="row">{{user.username}}</td>
-                            <td scope="row">{{user.email}}</td>
-                            {% if user.is_active %}
-                            <td scope="row">Active</td>
-                            {% else %}
-                            <td scope="row">Inactive</td>
-                            {% endif %}
-                            <!-- <td scope="row">{{user.is_staff}}</td> -->
-                            <td scope="row">{% if user.is_staff %}&#10003;{% else %}&#10005;{% endif %}</td>
-                            <!-- <td scope="row">{{user.is_superuser}}</td> -->
-                            <td scope="row">{% if user.is_superuser %}&#10003;{% else %}&#10005;{% endif %}</td>
+                            <td scope="row">{{vehicle.number}}</td>
+                            <td scope="row">{{vehicle.type}}</td>
+                            <td scope="row">{{vehicle.model}}</td>
+                            <td scope="row">{{vehicle.description}}</td>
 
                             {% if super_user or admin %}
                             <td scope="" row><button type="submit" class="btn btn-primary">
-                                    <a href="{% url 'view_user' user.id %}" class="custom-btn"> Edit </a>
+                                    <a href="{% url 'view_vehicle' vehicle.id %}" class="custom-btn"> Edit </a>
                                 </button></td>
                             {% else %}
                             <td scope="" row><button type="submit" class="btn btn-primary" disabled>
@@ -48,7 +45,7 @@
 
                             {% if super_user %}
                             <td scope="" row><button type="submit" class="btn btn-primary">
-                                    <a href="{% url 'delete_user' user.id %}" class="custom-btn"
+                                    <a href="{% url 'delete_vehicle' vehicle.id %}" class="custom-btn"
                                         onclick="return confirm('Are you sure you want to delete this item?');"> Delete
                                     </a>
                                 </button></td>
@@ -63,15 +60,26 @@
                     </tbody>
                 </table>
 
+
+                {% elif not super_user and not vehicle_list %}
+                <div class="col-centered">
+                    <h4> No Data Found </h4>
+                </div>
+                {% endif %}
+
                 {% if super_user %}
                 <div class="col-centered">
                     <button type="submit" class="btn btn-primary">
-                        <a href="{% url 'add_user' %}" class="custom-btn"> Add User </a>
+                        <a href="{% url 'add_vehicle' %}" class="custom-btn"> Add Vehicle </a>
                     </button>
                 </div>
                 {% endif %}
             </div>
         </div>
+
+
     </div>
+</div>
+
 </section>
 {% endblock %}
