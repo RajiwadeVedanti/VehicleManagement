@@ -40,13 +40,13 @@ def create_vehicle(request):
                     vc_desc = post_data.get("vc_desc")
                     vc_type = post_data.get("vc_type")
 
-                    user = Vehicle.objects.create(
+                    vehicle = Vehicle.objects.create(
                         number=vc_number,
                         model=vc_model.strip(),
                         description=vc_desc.strip(),
                         type=vc_type
                     )
-                    user.save()
+                    vehicle.save()
                     return redirect("get_vehicle")
                 else:
                     return render(request,"login_response.html" ,{"response":"You cannot perform this operation!"})

@@ -16,3 +16,8 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return self.number
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super(Post, self).save(*args, **kwargs)

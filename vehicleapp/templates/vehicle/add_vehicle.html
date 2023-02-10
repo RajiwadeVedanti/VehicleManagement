@@ -62,13 +62,13 @@
         };
 
         if (!reg_text_data.test(vc_model)) {
-            window.alert("Model contains special characters.");
+            window.alert("Model contains numbers or special characters.");
             document.getElementById("id_vc_model").focus();
             return false;
         };
 
         if (!reg_text_data.test(vc_desc)) {
-            window.alert("Description contains special characters.");
+            window.alert("Description contains numbers or special characters.");
             document.getElementById("id_vc_desc").focus();
             return false;
         };

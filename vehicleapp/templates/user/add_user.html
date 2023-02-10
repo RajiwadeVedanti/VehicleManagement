@@ -59,13 +59,13 @@
 
         var usr_type_list = ["user", "admin", "superadmin"];
 
-        var reg_username = /^[A-Za-z\s]*$/;
+        var reg_username = /^[A-Za-z\._]*$/;
         var reg_email = /^\w+([\.]?\w+)*@\w+([\.]?\w+)*(\.[a-z]{2,3})+$/;
         var reg_password = /^[a-z\d]*$/i;
 
 
         if (!reg_username.test(usr_name)) {
-            window.alert("Username contains special characters.");
+            window.alert("Username contains numbers or special characters.(only . and _ is allowed)");
             document.getElementById("id_username").focus();
             return false;
         };
@@ -77,7 +77,7 @@
         };
 
         if (!reg_password.test(usr_pass) || usr_pass.length > 8) {
-            window.alert("Password should not be greater than 8 and contain alphanumeric values");
+            window.alert("Password should not be greater than 8 characters and contain alphanumeric values");
             document.getElementById("id_password").focus();
             return false;
         };

@@ -59,12 +59,12 @@
 
         var usr_type_list = ["user", "admin", "superadmin"];
 
-        var reg_username = /^[A-Za-z\s]*$/;
+        var reg_username = /^[A-Za-z\._]*$/;
         var reg_email = /^\w+([\.]?\w+)*@\w+([\.]?\w+)*(\.[a-z]{2,3})+$/;
 
 
         if (!reg_username.test(usr_name)) {
-            window.alert("Username contains special characters.");
+            window.alert("Username contains numbers or special characters.(only . and _ is allowed)");
             document.getElementById("id_username").focus();
             return false;
         };
