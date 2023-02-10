@@ -20,8 +20,7 @@ Added custom middleware to filter the IP addresses.
 For testing you can add user ip address from which request in being process in allowed_ips which is inside middleware/ip_middleware.py file
 
 ## Prerequisites
-Python
-Django
+Python, Django, HTML, Bootstrap, JavaScript
 
 ## Run project locally
 - Clone the project from github using httpUrl or sshUrl into you project directory
